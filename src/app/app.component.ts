@@ -52,7 +52,7 @@ TaskList : TaskRecord[] = [];
 
     Init()
     {
-        this.title = 'CRUD operations';
+        this.title = 'Angular Second Assignment';
         this.index = 0;
         this.Task = {
             name : '',
