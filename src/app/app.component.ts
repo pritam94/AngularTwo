@@ -17,13 +17,22 @@ import { Component } from '@angular/core';
   <button [disabled]= "nameRef.value.length<1 || desRef.value.length<1" (click) = 'saveRecord()'> Save  </button>
   
   <hr>
-  <table>
+  <tr *ngFor = 'let task of TaskList; let i = index'>
+  <td [hidden] = 'true'> {{i}} </td>
+  <td><button (click) = 'OpenRecord(i)'> {{task.name | slice :'0':'1' | uppercase}}{{task.name | slice: '1'}}</button> </td></tr>
+  
+  <div [hidden]='check'>
+  <hr>
   <tr>
   <th> Record Id </th><th> name </th><th> description </th><th> edit </th><th> del </th>
   </tr>
-  <tr *ngFor = 'let task of TaskList; let i = index'>
-  <td> {{i}} </td><td> {{task.name | slice :'0':'1' | uppercase}}{{task.name | slice: '1'}} </td><td> {{task.description}} </td> <td><button (click) = 'EditRecord(i)'> Edit </button></td><td><button (click) = 'DeleteRecord(i)'> Delete </button></td></tr>
-  </table>
+  <tr >
+  <td> {{z}} </td><td> {{task.name | slice :'0':'1' | uppercase}}{{task.name | slice: '1'}} </td><td> {{task.description}} </td> <td><button (click) = 'EditRecord(z)'> Edit </button></td><td><button (click) = 'DeleteRecord(z)'> Delete </button></td></tr>
+  
+ 
+  </div>
+   <hr>
+  
   `,
   styleUrls: ['./app.component.css']
 })
@@ -32,6 +41,9 @@ export class AppComponent {
   Task : TaskRecord;
 TaskList : TaskRecord[] = [];
    index : any;
+   task : TaskRecord;
+   z : any;
+   check : boolean;
 
     constructor()
     {
@@ -46,6 +58,7 @@ TaskList : TaskRecord[] = [];
             name : '',
             description :''
         }
+        this.check=true;;
         
     }
     saveRecord()
@@ -57,17 +70,28 @@ TaskList : TaskRecord[] = [];
          this.index = 0;
         }
         this.Init();
+        this.check = true;
     }
     
     EditRecord(i:any)
     {
         this.index = 1;
         this.Task = this.TaskList[i];
+        
+        
     }
     
     DeleteRecord(i:any)
     {
         this.TaskList.splice(i, 1);
+        this.Init();
+        this.check = true;
+    }
+    OpenRecord(i)
+    {
+        this.z = i;
+        this.task = this.TaskList[i];
+        this.check = false;
     }
     
     
