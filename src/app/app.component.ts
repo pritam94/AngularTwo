@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
   <td [hidden] = 'true'> {{i}} </td>
   <td><button (click) = 'OpenRecord(i)'> {{task.name | slice :'0':'1' | uppercase}}{{task.name | slice: '1'}}</button> </td></tr>
   
-  <div [hidden]='check'>
+  <div *ngIf='!check'>
   <hr>
   <tr>
   <th> Record Id </th><th> name </th><th> description </th><th> edit </th><th> del </th>
